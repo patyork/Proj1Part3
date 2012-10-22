@@ -24,7 +24,11 @@ namespace simphys {
     // set texture stuff.
     
     // draw
-    glBegin(GL_QUADS);
+    glColor3f(0.0f,1.0f,0.0f);
+    glTranslatef(x+40,y+40,0.0f);
+    gluDisk(gluNewQuadric(), 0, 40, 32, 32); //pointer, radius, slices, loops
+    
+    /*glBegin(GL_QUADS);
     glTexCoord2f(0.0, 0.0f);
     glVertex2f(x, y);
     glTexCoord2f(1.0, 0.0);
@@ -33,6 +37,6 @@ namespace simphys {
     glVertex2f(x + 64, y + 64);
     glTexCoord2f(0.0, 1.0);
     glVertex2f(x, y + 64);
-    glEnd(); 
+    glEnd(); */
   }
 }
