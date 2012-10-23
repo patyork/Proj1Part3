@@ -44,6 +44,8 @@ int main(int argc, char **argv) {
   objState2->setPosition(simphys::vec3{500, 20, 0});
   objState2->setVelocity(simphys::vec3{-40.0, 60.0, 0});
   objState2->setAcceleration(simphys::vec3{0, -9.8, 0});
+  objState2->setColor(1.0f,0.0f,0.0f);
+  //objState2->setRadius(80.0f);
 
   // add objects to the world.
   world_ptr->add(obj_ptr);

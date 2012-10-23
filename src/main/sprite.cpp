@@ -20,23 +20,14 @@ namespace simphys {
     auto pos = p->getPosition();
     float x = pos.getX();
     float y = pos.getY();
+    Color newColor = p->getColor();
     
     // set texture stuff.
     
     // draw
-    glColor3f(0.0f,1.0f,0.0f);
-    glTranslatef(x+40,y+40,0.0f);
-    gluDisk(gluNewQuadric(), 0, 40, 32, 32); //pointer, radius, slices, loops
+    glColor3f(newColor.r,newColor.g,newColor.b);
+    glTranslatef( x+p->getRadius(),y+p->getRadius(),0.0f );
+    gluDisk(gluNewQuadric(), 0, p->getRadius(), 32, 32); //pointer, radius, slices, loops
     
-    /*glBegin(GL_QUADS);
-    glTexCoord2f(0.0, 0.0f);
-    glVertex2f(x, y);
-    glTexCoord2f(1.0, 0.0);
-    glVertex2f(x + 64, y);
-    glTexCoord2f(1.0, 1.0);
-    glVertex2f(x + 64, y + 64);
-    glTexCoord2f(0.0, 1.0);
-    glVertex2f(x, y + 64);
-    glEnd(); */
   }
 }
