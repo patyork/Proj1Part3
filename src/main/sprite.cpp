@@ -26,7 +26,7 @@ namespace simphys {
     
     // draw
     glColor3f(newColor.r,newColor.g,newColor.b);
-    glTranslatef( x+p->getRadius(),y+p->getRadius(),0.0f );
+    glTranslatef( x,y,0.0f );
     gluDisk(gluNewQuadric(), 0, p->getRadius(), 32, 32); //pointer, radius, slices, loops
     
   }

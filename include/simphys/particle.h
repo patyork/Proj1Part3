@@ -56,6 +56,7 @@ namespace simphys {
     
     // Radius of the particle
     float radius;
+    
 
   public:
 

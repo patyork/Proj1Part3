@@ -3,6 +3,9 @@
 
 #include <memory>
 #include <chrono>
+#include "collision.h"
+#include "particle.h"
+#include <vector>
 
 namespace simphys {
 
@@ -28,6 +31,9 @@ namespace simphys {
 
     void setSimWorld(shared_ptr<SimWorld> simworld);
     shared_ptr<SimWorld> getSimWorld() const;
+    
+    // Detects collisions in the world
+    void detectCollisions( std::vector<Collision>& collisionList );
   };
 
 }

@@ -4,6 +4,7 @@
 #include <memory>
 #include <chrono>
 #include <iostream>
+#include <vector>
 
 namespace simphys {
 
@@ -19,16 +20,16 @@ namespace simphys {
 		auto p = obj->getState();
 	
 		// really cheap way of testing for collisions with ground.
-		if (p->getPosition().getY() > 0.0f) {
+		if (p->getPosition().getY() - p->getRadius() > 0.0f) {
 	  		p->integrate(dt);
 		} 
       }
       
-      // check for colliosions
+      // check for collisions
       
       // for each collision, resolve
      
-      // check for more colisions
+      // check for more colisions, (loop)
       
     } 
   }
@@ -39,6 +40,43 @@ namespace simphys {
 
   shared_ptr<SimWorld> PhysicsEngine::getSimWorld() const {
     return sw;
+  }
+  
+  void PhysicsEngine::detectCollisions( std::vector<Collision>& collisionList )
+  {
+  	auto obs = sw->getObjects();
+  	std::vector<shared_ptr<Particle>> p1;	//first vector of particles
+  	std::vector<shared_ptr<Particle>> p2;	//copy of that vector of particles
+  	
+  	for( auto ob : obs )
+  	{
+  		//ob->getState(); will get each particle
+  		p1.push_back( ob->getState() );
+  	}
+  	p2 = p1;
+  	
+  	for( auto i : p1 )
+  	{
+  		for( auto j : p2 )
+  		{
+  			// don't compare to itself
+  			if( i->getPosition().getX() != j->getPosition().getX()
+  				&& i->getPosition().getY() != j->getPosition().getY() )
+  			{
+  				float distanceSQ = ( j->getPosition().getX() - i->getPosition().getX() );
+  				distanceSQ = distanceSQ * distanceSQ;
+  				distanceSQ += (j->getPosition().getY() - i->getPosition().getY())*(j->getPosition().getY() - i->getPosition().getY());
+  				
+  				float radii = i->getRadius() + j->getRadius();
+  				radii = radii * radii;
+  				
+  				if( distanceSQ <= radii ) // collision
+  				{
+  				
+  				}
+  			}
+  		}
+  	}
   }
 
 }
