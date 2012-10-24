@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
   objState->setPosition(simphys::vec3{40, 50, 0});
   objState->setVelocity(simphys::vec3{50.0, 100.0, 0});
   objState->setAcceleration(simphys::vec3{0, -20.0, 0});
-  objState->setMass(10.0f);
+  objState->setMass(1.0f);
   
   // create and initialize another object
   simphys::Particle p2;
@@ -47,7 +47,9 @@ int main(int argc, char **argv) {
   objState2->setAcceleration(simphys::vec3{0, -20.0, 0});
   objState2->setMass(1.0f);
   objState2->setColor(1.0f,0.0f,0.0f);
-  //objState2->setRadius(80.0f);
+  objState2->setRadius(45.0f);
+  
+
 
   // add objects to the world.
   world_ptr->add(obj_ptr);

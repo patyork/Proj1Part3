@@ -33,7 +33,6 @@ namespace simphys {
       for( auto i : collisionList)
       {
            i.resolve();
-           break;/////////////////stub//////////
       }
      
       // check for more colisions, (loop)
@@ -51,7 +50,7 @@ namespace simphys {
   
   void PhysicsEngine::detectCollisions( std::vector<Collision>& collisionList )
   {
-  	auto obs = sw->getObjects();
+  	auto obs = sw->getObjects();			//obs is a vector of simobject2D's
   	std::vector<shared_ptr<Particle>> p1;	//first vector of particles
   	std::vector<shared_ptr<Particle>> p2;	//copy of that vector of particles
   	
@@ -61,10 +60,14 @@ namespace simphys {
   	}
   	p2 = p1;
   	
-  	for( auto i : p1 )
+  
+  	
+  	for( unsigned int x=0; x<p1.size(); x++ )
   	{
-  		for( auto j : p2 )
+  		for( unsigned int y=x+1; y<p2.size(); y++ )
   		{
+               auto i = p1[x];
+               auto j = p2[y];
                
                // don't compare to itself
   			if( i != j )
@@ -83,8 +86,17 @@ namespace simphys {
                          if( v2 < 0 ) v2=-v2;
                          vs = (v1+v2);
                          
+                         //Determine contact normal
+                         vec3 posA = i->getPosition();
+                         //posA.normalize();
+                         vec3 posB = j->getPosition();
+                         //posB.normalize();
+                         vec3 contactNorm = posA - posB;
+                         contactNorm.normalize();
+                         if( contactNorm.getX() < 0 ) contactNorm.setX( -contactNorm.getX() );
+                         
                          //add collision
-                         collisionList.push_back( Collision{i, j, vec3{1,0,0}, 1.0f, vs } );
+                         collisionList.push_back( Collision{i, j, contactNorm, 1.0f, vs } );
   				}
   			}
   		}
