@@ -72,19 +72,38 @@ namespace simphys
           std::shared_ptr<Particle> a = ps.first;
           std::shared_ptr<Particle> b = ps.second;
           
+          bool penDone = false;
+          int penCount = 0;
           
-          //Resolve Interpenetration
-          vec3 pos1 = (ps.first)->getPosition(), pos2 = (ps.second)->getPosition();
-          float r1 = (ps.first)->getRadius(), r2 = (ps.second)->getRadius();
-          float d = sqrtf( (pos2.getX() - pos1.getX())*(pos2.getX() - pos1.getX()) + (pos2.getY() - pos1.getY())*(pos2.getY() - pos1.getY()) );
-          float penetration = r1 + r2 - d;
-          std::cout << "Interpenetration: " << penetration << std::endl;
+          while( !penDone && penCount < 5 )
+          {
+          	//Resolve Interpenetration
+          	vec3 pos1 = (ps.first)->getPosition(), pos2 = (ps.second)->getPosition();
+          	float r1 = (ps.first)->getRadius(), r2 = (ps.second)->getRadius();
+          	float d = sqrtf( (pos2.getX() - pos1.getX())*(pos2.getX() - pos1.getX()) + (pos2.getY() - pos1.getY())*(pos2.getY() - pos1.getY()) );
+          	float penetration = r1 + r2 - d;
+          	
+          	if( penetration < 0.0001f )
+          	{
+          		penDone = true;
+          		break;
+          	}
+          	
+          	std::cout << "Interpenetration: " << penetration << std::endl;
           
-          vec3 
+          	vec3 resDir{ pos2.getX() - pos1.getX(), pos2.getY() - pos1.getY(), pos2.getZ() - pos1.getZ() }; // direction to resolve B
           
-          /* bogus penetration resolution
-          vec3 acurr = a->getPosition();
-          a->setPosition( vec3{acurr.getX() - 10.0f, acurr.getY(), acurr.getZ()} );*/
+          	vec3 newPos = pos2 + resDir.normalized() * penetration;
+          	std::cout << "Old Position: " << pos2.toString() << std::endl
+          		<< "New Position: " << newPos.toString() << std::endl;
+          		
+          	b->setPosition( newPos );  // resolve the interpenetration
+          	penCount++;	//counter to make sure we don't resolve too many times
+          }
+          
+          
+          
+          
           
           std::cout<< "Contact Normal: " << normal.toString() << std::endl;
           

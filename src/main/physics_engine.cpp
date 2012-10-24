@@ -29,13 +29,23 @@ namespace simphys {
       std::vector<Collision> collisionList;
       detectCollisions( collisionList );
       
-      // for each collision, resolve
-      for( auto i : collisionList)
+      int resolveCount = 0;		// Upper bound for number of times to check for collisions
+      
+      while( collisionList.size() > 0 && resolveCount<10)
       {
-           i.resolve();
-      }
+      	std::cout << std::endl << std::endl << collisionList.size() << std::endl << std::endl;
+      
+      	// for each collision, resolve
+      	for( auto i : collisionList)
+      	{
+           	i.resolve();
+      	}
      
-      // check for more colisions, (loop)
+      	// check for more colisions
+      	collisionList.clear();
+      	detectCollisions( collisionList );
+      	resolveCount++;
+      }
       
     } 
   }
@@ -79,7 +89,7 @@ namespace simphys {
   				float radii = i->getRadius() + j->getRadius();
   				radii = radii * radii;
   				
-  				if( distanceSQ <= radii ) // collision
+  				if( distanceSQ < radii ) // collision
   				{
                          float v1 = i->getVelocity().getX(), v2 = j->getVelocity().getX(), vs;
                          if( v1 < 0 ) v1=-v1;
