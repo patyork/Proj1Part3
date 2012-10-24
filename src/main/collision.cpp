@@ -40,7 +40,7 @@ namespace simphys
 		return e;
 	}
 	
-	vec3 Collision::getClosingVelocity() const
+	float Collision::getClosingVelocity() const
 	{
 		return closingVelocity;
 	}
@@ -61,14 +61,47 @@ namespace simphys
 	
 	}
 	
-	void Collision::setClosingVelocity( vec3 vs )
+	void Collision::setClosingVelocity( float vs )
 	{
 	
 	}
 	
-	void resolve()
+	void Collision::resolve()
 	{
-	
+          std::shared_ptr<Particle> a = ps.first;
+          std::shared_ptr<Particle> b = ps.second;
+          
+          
+          /*//Resolve Interpenetration
+          vec3 pos1 = (ps.first)->getPosition(), pos2 = (ps.second)->getPosition();
+          float r1 = (ps.first)->getRadius(), r2 = (ps.second)->getRadius();
+          while(  )*/
+          
+          vec3 acurr = a->getPosition();
+          a->setPosition( vec3{acurr.getX() - 2.0f, acurr.getY(), acurr.getZ()} );
+          
+          
+          
+          
+          float dvel = (-e * closingVelocity) - closingVelocity;
+          float M = 1 / a->getMass() + 1 / b->getMass();
+          float impulse = dvel / M;
+          vec3 IV = impulse * normal;
+          vec3 newa = IV * (1/a->getMass()) + a->getVelocity();
+          vec3 newb = b->getVelocity() - IV * (1/b->getMass());
+          
+          a->setVelocity( newa + a->getVelocity() );
+          b->setVelocity( newb + b->getVelocity() );
+          
+          std::cout  << std::endl;
 	}
+     
+     Collision::Collision( std::shared_ptr<Particle> p1, std::shared_ptr<Particle> p2, vec3 norm, float cor, float vs )
+     {
+          ps = std::make_pair (p1,p2);
+          normal = norm;
+          e = cor;
+          closingVelocity = vs;
+     }
 
 }

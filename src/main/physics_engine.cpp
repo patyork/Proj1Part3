@@ -26,8 +26,15 @@ namespace simphys {
       }
       
       // check for collisions
+      std::vector<Collision> collisionList;
+      detectCollisions( collisionList );
       
       // for each collision, resolve
+      for( auto i : collisionList)
+      {
+           i.resolve();
+           break;/////////////////stub//////////
+      }
      
       // check for more colisions, (loop)
       
@@ -50,7 +57,6 @@ namespace simphys {
   	
   	for( auto ob : obs )
   	{
-  		//ob->getState(); will get each particle
   		p1.push_back( ob->getState() );
   	}
   	p2 = p1;
@@ -59,9 +65,9 @@ namespace simphys {
   	{
   		for( auto j : p2 )
   		{
-  			// don't compare to itself
-  			if( i->getPosition().getX() != j->getPosition().getX()
-  				&& i->getPosition().getY() != j->getPosition().getY() )
+               
+               // don't compare to itself
+  			if( i != j )
   			{
   				float distanceSQ = ( j->getPosition().getX() - i->getPosition().getX() );
   				distanceSQ = distanceSQ * distanceSQ;
@@ -72,7 +78,13 @@ namespace simphys {
   				
   				if( distanceSQ <= radii ) // collision
   				{
-  				
+                         float v1 = i->getVelocity().getX(), v2 = j->getVelocity().getX(), vs;
+                         if( v1 < 0 ) v1=-v1;
+                         if( v2 < 0 ) v2=-v2;
+                         vs = v1+v2;
+                         
+                         //add collision
+                         collisionList.push_back( Collision{i, j, vec3{1,0,0}, 1.0f, vs } );
   				}
   			}
   		}

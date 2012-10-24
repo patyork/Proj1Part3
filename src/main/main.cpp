@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
   objState->setPosition(simphys::vec3{40, 50, 0});
   objState->setVelocity(simphys::vec3{50.0, 100.0, 0});
   objState->setAcceleration(simphys::vec3{0, -20.0, 0});
-  objState->setMass(10000.0f);
+  objState->setMass(1.0f);
   
   // create and initialize another object
   simphys::Particle p2;
@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
   objState2->setPosition(simphys::vec3{550, 50, 0});
   objState2->setVelocity(simphys::vec3{-50.0, 100.0, 0});
   objState2->setAcceleration(simphys::vec3{0, -20.0, 0});
-  objState->setMass(100.0f);
+  objState->setMass(0.1f);
   objState2->setColor(1.0f,0.0f,0.0f);
   //objState2->setRadius(80.0f);
 

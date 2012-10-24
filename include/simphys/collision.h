@@ -22,22 +22,24 @@ namespace simphys {
 			float e;
 			
 			// The closing velocity of the two particles
-			vec3	closingVelocity;
+			float closingVelocity;
+               
 			
 		public:
 			//getters
 			std::pair <std::shared_ptr<Particle>,std::shared_ptr<Particle>> getParticles() const;
 			vec3 getNormal() const;
 			float getCoR() const;
-			vec3 getClosingVelocity() const;
+			float getClosingVelocity() const;
 			
 			//setters
 			void setParticles( std::pair <std::shared_ptr<Particle>,std::shared_ptr<Particle>> particles );
 			void setNormal( vec3 norm );
 			void setCoR( float cor );
-			void setClosingVelocity( vec3 vs );
+			void setClosingVelocity( float vs );
 			
 			void resolve();
+               Collision( std::shared_ptr<Particle> p1, std::shared_ptr<Particle> p2, vec3 norm, float cor, float vs );
 	
 	}; // end Collision
 
