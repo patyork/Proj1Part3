@@ -84,7 +84,14 @@ namespace simphys
           
           
           float dvel = (-e * closingVelocity) - closingVelocity;
-          float M = 1 / a->getMass() + 1 / b->getMass();
+          std::cout<< "Closing Velocity: " << closingVelocity << std::endl;
+          std::cout<< "Vs': " << (-e * closingVelocity) << std::endl;
+          std::cout<< "dVel: " << dvel << std::endl;
+          
+          float M = (1 / a->getMass()) + (1 / b->getMass());
+          std::cout << "Inverse Mass 1: " << (1/a->getMass()) << std::endl
+               << "Inverse Mass 2: " << (1/b->getMass()) << std::endl
+               << "M: " << M << std::endl;
           float impulse = dvel / M;
           vec3 IV = impulse * normal;
           vec3 newa = IV * (1/a->getMass()) + a->getVelocity();

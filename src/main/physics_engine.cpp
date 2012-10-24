@@ -81,7 +81,7 @@ namespace simphys {
                          float v1 = i->getVelocity().getX(), v2 = j->getVelocity().getX(), vs;
                          if( v1 < 0 ) v1=-v1;
                          if( v2 < 0 ) v2=-v2;
-                         vs = v1+v2;
+                         vs = (v1+v2);
                          
                          //add collision
                          collisionList.push_back( Collision{i, j, vec3{1,0,0}, 1.0f, vs } );
