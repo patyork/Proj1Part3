@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
   auto obj_ptr2 = std::make_shared<simphys::SimObject2D>(testObject2);
   auto objState2 = testObject2.getState();
   objState2->setPosition(simphys::vec3{550, 50, 0});
-  objState2->setVelocity(simphys::vec3{-50.0, 100.0, 0});
+  objState2->setVelocity(simphys::vec3{-50.0, 101.0, 0});
   objState2->setAcceleration(simphys::vec3{0, -20.0, 0});
   objState2->setMass(100.0f);
   objState2->setColor(1.0f,0.0f,0.0f);
@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
   if( argc == 4 )
   {
   	objState->setVelocity(simphys::vec3{ float(atof(argv[1])), float(atof(argv[2])), 0});
-  	objState->setVelocity(simphys::vec3{ float(atof(argv[1])), float(atof(argv[2])), 0});
+  	objState2->setVelocity(simphys::vec3{ float(atof(argv[1]) * -1), float(atof(argv[2])), 0});
   }
   if( argc == 3 )
   {

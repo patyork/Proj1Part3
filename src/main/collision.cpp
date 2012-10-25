@@ -83,7 +83,7 @@ namespace simphys
           	float d = sqrtf( (pos2.getX() - pos1.getX())*(pos2.getX() - pos1.getX()) + (pos2.getY() - pos1.getY())*(pos2.getY() - pos1.getY()) );
           	float penetration = r1 + r2 - d;
           	
-          	if( penetration < 0.0001f )
+          	if( penetration < 0.01f )
           	{
           		penDone = true;
           		break;
