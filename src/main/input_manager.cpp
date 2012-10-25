@@ -1,9 +1,13 @@
 #include "simphys/input_manager.h"
 #include "simphys/sim_engine.h"
+#include "simphys/sim_world.h"
 
 #include <GL/glxew.h>
 #include <iostream>
 #include <utility>
+#include <memory>
+#include <chrono>
+#include <vector>
 
 namespace simphys {
 
@@ -56,7 +60,17 @@ namespace simphys {
       }
       
       if (XLookupKeysym(&newEvent.xkey, 0) == XK_Up) {
-	std::cout << "You hit up!" << std::endl;
+		std::cout << "You hit up!" << std::endl;
+		
+		auto sw = parent->getSimWorld();
+		auto objects = sw->getObjects();
+		
+		for( auto ob : objects )
+		{
+			auto p = ob->getState();
+			auto currVel = p->getVelocity();
+			p->setVelocity( vec3{currVel.getX(), currVel.getY() + 10, currVel.getZ()} );
+		}
       }
       
       if (XLookupKeysym(&newEvent.xkey, 0) == XK_1) {
