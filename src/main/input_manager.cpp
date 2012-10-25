@@ -60,7 +60,7 @@ namespace simphys {
       }
       
       if (XLookupKeysym(&newEvent.xkey, 0) == XK_Up) {
-		std::cout << "You hit up!" << std::endl;
+		std::cout << "You hit up! Vertical Velocity increased by 10!" << std::endl;
 		
 		auto sw = parent->getSimWorld();
 		auto objects = sw->getObjects();
@@ -70,6 +70,20 @@ namespace simphys {
 			auto p = ob->getState();
 			auto currVel = p->getVelocity();
 			p->setVelocity( vec3{currVel.getX(), currVel.getY() + 10, currVel.getZ()} );
+		}
+      }
+      
+      else if (XLookupKeysym(&newEvent.xkey, 0) == XK_Down) {
+		std::cout << "You hit up! Vertical Velocity decreased by 10!" << std::endl;
+		
+		auto sw = parent->getSimWorld();
+		auto objects = sw->getObjects();
+		
+		for( auto ob : objects )
+		{
+			auto p = ob->getState();
+			auto currVel = p->getVelocity();
+			p->setVelocity( vec3{currVel.getX(), currVel.getY() - 10, currVel.getZ()} );
 		}
       }
       
