@@ -79,7 +79,7 @@ namespace simphys
           vec3 pos1 = (ps.first)->getPosition(), pos2 = (ps.second)->getPosition();
           float r1 = (ps.first)->getRadius(), r2 = (ps.second)->getRadius();
           float d = sqrtf( (pos2.getX() - pos1.getX())*(pos2.getX() - pos1.getX()) + (pos2.getY() - pos1.getY())*(pos2.getY() - pos1.getY()) );
-          float penetration = r1 + r2 - d;
+          float penetration = r1 + r2 - d + .001f;
           	
           std::cout << "Interpenetration: " << penetration << std::endl;
           
@@ -90,29 +90,6 @@ namespace simphys
           		<< "New Position: " << newPos.toString() << std::endl;
           		
          	b->setPosition( newPos );  // resolve the interpenetration
-         	
-         	
-         	
-         	
-         	
-         	pos1 = (ps.first)->getPosition(), pos2 = (ps.second)->getPosition();
-          r1 = (ps.first)->getRadius(), r2 = (ps.second)->getRadius();
-          d = sqrtf( (pos2.getX() - pos1.getX())*(pos2.getX() - pos1.getX()) + (pos2.getY() - pos1.getY())*(pos2.getY() - pos1.getY()) );
-          penetration = r1 + r2 - d;
-         	std::cout << "Interpenetration After: " << penetration << std::endl;
-         	
-         	
-         	
-         	
-         	newPos = pos2;
-         	newPos.setX( newPos.getX() - penetration ) ;
-         	b->setPosition( newPos );  // resolve the interpenetration
-         	
-         	pos1 = (ps.first)->getPosition(), pos2 = (ps.second)->getPosition();
-          r1 = (ps.first)->getRadius(), r2 = (ps.second)->getRadius();
-          d = sqrtf( (pos2.getX() - pos1.getX())*(pos2.getX() - pos1.getX()) + (pos2.getY() - pos1.getY())*(pos2.getY() - pos1.getY()) );
-          penetration = r1 + r2 - d;
-         	std::cout << "Interpenetration After2: " << penetration << std::endl;
          	
           
           
